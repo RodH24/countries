@@ -1,11 +1,10 @@
 const axios = require("axios");
-const { Country } = require("../db");
+//const { Country } = require("../db");
 
 const getCountries = async (req, res) =>{
 
     try{
         let allCountriesApi = await axios(`https://restcountries.com/v3/all`);
-        let allCountriesDB = await Country.findAll();
         allCountriesApi = allCountriesApi.data.map(country => {
             return ({
                 id: country.id,
