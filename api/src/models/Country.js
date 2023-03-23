@@ -5,10 +5,10 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('country', {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      primaryKey: true,
-      autoIncremnent: true
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING,
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
     },
     flag: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     continent: {
       type: DataTypes.STRING,
