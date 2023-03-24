@@ -5,7 +5,7 @@ const Landing = (props)=>{
     return(
         <div className={styles.div_screen}>
             <Link to="/home">
-                <button className={styles.button} onClick={() => props.getcountries()}>
+                <button className={styles.button} onClick={() => props.getcountries}>
                     HOME
                 </button>
             </Link>
