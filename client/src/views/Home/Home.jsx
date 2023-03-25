@@ -4,6 +4,7 @@ import { getCountries } from "../../redux/actions";
 import { useSelector } from "react-redux";
 // import searchBar from "../../Components/SearchBar/SearchBar";
 import Paginate from "../Paginate/Paginate"
+import Card from "../../Components/Card/Card"
 
 const Home = ()=>{
 
@@ -24,10 +25,10 @@ const Home = ()=>{
         // dispatch(byActivity())
     },[dispatch])
 
-    function handleClick(e){
-        e.preventDefault();
-        dispatch(getCountries());
-    }
+    // function handleClick(e){
+    //     e.preventDefault();
+    //     dispatch(getCountries());
+    // }
 
     return(
         <>
@@ -37,6 +38,7 @@ const Home = ()=>{
             allCharacters={allCharacters.length}
             paginate = {paginate}
             />
+            <Card />
         </>
     )
 }

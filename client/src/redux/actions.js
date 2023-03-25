@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = 'http://localhost:3001/pi/';
+const url = 'http://localhost:3001/pi';
 
 export const GET_COUNTRIES = "GET_COUNTRIES";
 export const getCountries = () =>{
@@ -24,5 +24,14 @@ export const getByName = (name) =>{
         const res = await axios.get(`${url}/countries?name=${name}`);
         const nameCountry = res.data;
         dispatch({type:GET_BY_NAME, payload: nameCountry});
+    };
+};
+
+export const GET_DETAIL = "GET_DETAIL";
+export const getDetail = (id) => {
+    return async function (dispatch){
+        const detail = await axios.get(`${url}/countries/${id}`);
+        const idCountry = detail.data;
+        dispatch({type: GET_DETAIL, payload:idCountry});
     };
 };
