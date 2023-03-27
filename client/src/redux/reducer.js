@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, GET_BY_NAME, GET_PAGES, GET_DETAIL } from "./actions";
+import { GET_COUNTRIES, GET_BY_NAME, GET_PAGES, GET_DETAIL, SET_CONTINENT } from "./actions";
 
 const initialState = {
     countries: [],
@@ -25,7 +25,7 @@ function paginate(currentPage, sizePage, list) {
 const rootReducer = (state = initialState, action) =>{
     switch (action.type) {
         case GET_COUNTRIES:
-            const allCountries = action.payload.countries;
+            const allCountries = action.payload;
             const pagAllCountries = paginate(
                 state.currentPage,
                 state.sizePage,
@@ -45,7 +45,7 @@ const rootReducer = (state = initialState, action) =>{
                 const sizePage = action.payload.sizePage;
                 const currentPage = action.payload.currentPage;
                 const allCountriesF = state.filter;
-          
+                console.log("hola2");
                 const pagPages = paginate(
                   action.payload.currentPage,
                   action.payload.sizePage,
@@ -68,6 +68,11 @@ const rootReducer = (state = initialState, action) =>{
             return{
                 ...state,
                 details: action.payload
+            }
+        case SET_CONTINENT:
+            return {
+                 ...state,
+                 continent: action.payload
             }
         default:
             return {...state};

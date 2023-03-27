@@ -6,19 +6,19 @@ const getCountriesId = async (req, res, next) =>{
         const {id} = req.params;
         let countries
 
-        if (id.length > 1) {
+        if (id.length > 0) {
             countries = await Country.findByPk(id, { include: Activity })
 
             countries = {
                 id: countries.id,
                 name: countries.name,
-                image: countries.image,
+                flag: countries.flag,
                 continent: countries.continent,
                 capital: countries.capital,
                 subregion: countries.subregion,
                 area: countries.area,
                 population: countries.population,
-                activities: countries.activities.map((e) => {
+                activities: countries.Activities.map((e) => {
                     return {
                         id: e.id,
                         name: e.name,

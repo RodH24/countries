@@ -1,65 +1,26 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getDetail } from '../../redux/actions'
+import { Link } from 'react-router-dom';
 import style from "./Card.module.css";
 
-function Card(props) {
-    const dispatch = useDispatch()
-    const details = useSelector(state => state.details)
+function Card(props){
+    const {id ,flag, name, code, continent, population} = props;
 
-    useEffect(() => {
-        dispatch(getDetail(props.match.params.id))
-    }, [dispatch, props.match.params.id])
 
-    const activities = details.activities?.map(e => {
-        return {
-            name: e.name,
-            difficulty: e.difficulty,
-            duration: e.duration,
-            season: e.season
-        }
-    })
+    return(
+         <div className={`${style.countryCard}`}>
+              <div className={`${style.countryImg}`}>
+                   <h1>{flag}</h1>
+              </div>
+              <div className={`${style.countryInfo}`}>
+                   <h3>{name}</h3>
+                   <p><span>Codigo: </span>{code}</p>
+                   <p><span>Continente: </span>{continent}</p>
+                   <p><span>Población: </span>{population}</p>
+                   <Link to={`/countries/${id}`} className={style.button}>Mas Informacion</Link>                    
 
-    return (
-        <div>
-            <div className={style.card}>
-                    <div>
-                        <div className={style.flag}>
-                            <h2>{details.name}</h2>
-                            <img src={details.image} alt={details.name} className={style.imagen} />
-                        </div>
-                        <div className={style.cont}>
-                            <div className={style.detail}>
-                                <div className={style.details}>
-                                    <h3>Details</h3>
-                                    <p>Code: {details.id}</p>
-                                    <p>Continent: {details.continent}</p>
-                                    <p>Capital: {details.capital}</p>
-                                    <p>Population: {details.population}</p>
-                                    <p>Subregion: {details.subregion}</p>
-                                </div>
-                                <div className={style.activities}>
-                                    <h3>Activities</h3>
-                                    {activities?.length > 0 ? activities?.map(e => {
-                                        return (
-                                            <div key={e.id}>
-                                                <p>Name: {e.name}</p>
-                                                <p>Difficulty: {e.difficulty}</p>
-                                                <p>Duration: {e.duration}</p>
-                                                <p>Season: {e.season}</p>
-                                                <hr></hr>
-                                            </div>
-                                        )
-                                    })
-                                        : <p>Without activities</p>}
-                                </div>
-                            </div>
-                        </div>
-                    </div> : <p>Country not found</p>
-                
-            </div>
-        </div>
+                   
+              </div>
+         </div>
     )
-}
+};
 
-export default Card
+export default Card;

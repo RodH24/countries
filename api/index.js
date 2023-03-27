@@ -36,7 +36,8 @@ conn.sync({ force: true }).then(() => {
         capital: country.capital ? country.capital[0] : 'Not found',
         subregion: country.subregion,
         area: country.area,
-        population: country.population
+        population: country.population,
+        activities: []
     }
     })
         await Country.bulkCreate(apiCountries);
