@@ -18,22 +18,6 @@ const getCountries = async (req, res) =>{
       } else {
         res.json(allCountries);
       }
-      //     const allCountries = Country.findAll();
-      //     if(!allCountries.length){
-      //     let allCountriesApi = await axios.get(`https://restcountries.com/v3/all`);
-      //     allCountriesApi = allCountriesApi.data.map(country => {
-      //         return ({
-      //             id: country.cca3,
-      //             name: country.name.common,
-      //             flag: country.flag[0],
-      //             continent: country.continents[0],
-      //             capital: country.capital ? country.capital[0] : 'Not found',
-      //             subregion: country.subregion,
-      //             area: country.area,
-      //             population: country.population
-      //         })
-      //     })
-      // }
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

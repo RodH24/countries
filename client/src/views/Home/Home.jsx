@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCountries, getByName, setContinent } from "../../redux/actions";
 import { useSelector } from "react-redux";
-// import searchBar from "../../Components/SearchBar/SearchBar";
 import Paginate from "../Paginate/Paginate"
 import Card from "../../Components/Card/Card"
 import style from "./Home.module.css"
@@ -30,14 +29,12 @@ const Home = ()=>{
       
       const cambiarContinente = (e) =>{
         dispatch(setContinent(e.target.value));
-        console.log('entro?');
       }  
     
       return (
-        
+        <div className={style.div_screen}>
         <div className={`${style.container}`}>
-    
-          <div className={style.container}>
+              <div className={style.container}>
                   <div>
                     <input onChange={(e)=> setCountry(e.target.value)} type="text" name="searchCountry" placeholder="Buscar Pais" className={style.searchBar}/>
                   </div>
@@ -64,10 +61,10 @@ const Home = ()=>{
                   </div>
           </div>
     
-          <div className={`${style.containerCards}`}>
+          <div className={style.container}>
             {countries.length > 0 ? countries.map((country, index) =>{
             if(currentPage === 1 & index <10){
-              return (<Card
+              return (<div className={style.containerCards}><Card
                 key={country.id} 
                 id = {country.id}
                 flag={country.flag}
@@ -75,7 +72,7 @@ const Home = ()=>{
                 name={country.name}
                 continent={country.continent}  
                 population={country.population}      
-              />)
+              /></div>)
             }
             else if(currentPage !== 1 && index >= ((currentPage-1)*10)-1 && (index < (currentPage*10)-1)){
               return (<Card
@@ -87,7 +84,7 @@ const Home = ()=>{
                 continent={country.continent}  
                 population={country.population}      
               />)}}): 
-              <div className={style.noHay}>
+              <div>
                 <p>No hay paises. Intenta otra busqueda.</p>
               </div>}
           </div>
@@ -95,6 +92,7 @@ const Home = ()=>{
           <div>
             <Paginate countriesLength={countries.length}/>
           </div>
+        </div>
         </div>
       )
     };

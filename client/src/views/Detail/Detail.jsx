@@ -22,7 +22,7 @@ function Detail(){
               </div>
               <div className={`${style.info}`}>
                    <p>Nombre: <span>{country.name}</span></p>
-                   <p>Codigo: <span>{country.code}</span></p>
+                   <p>Codigo: <span>{country.id}</span></p>
                    <p>Capital: <span>{country.capital}</span></p>
                    <p>Poblacion: <span>{country.population}</span></p>
                    <p>Continente: <span>{country.continent}</span></p>

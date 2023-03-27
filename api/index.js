@@ -26,7 +26,8 @@ conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     const allCountries = Country.findAll();
     if(!allCountries.length){
-    const apiCountriesResponse = await axios.get('https://restcountries.com/v3/all');
+      //https://restcountries.com/v3/all
+    const apiCountriesResponse = await axios.get('https://apimocha.com/pi-countries/countries');
     var apiCountries = apiCountriesResponse.data.map((country) => {
       return {
         id: country.cca3,

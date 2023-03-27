@@ -1,11 +1,18 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./NavBar.module.css"
 
 const NavBar = () => {
-    <div className={styles.mainContainer}>
-        <Link to="/home">HOME</Link>
-        <link to="/form">NUEVA ACTIVIDAD</link>
+    return(
+        <div>
+    {/* <div>
+        <NavLink to="/"></NavLink>        
+    </div> */}
+    <div>
+        <NavLink to="/">INICIO</NavLink>
+        <NavLink to="/form">NUEVA ACTIVIDAD</NavLink>
     </div>
+    </div>
+    )
 }
 
 export default NavBar;

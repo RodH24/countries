@@ -6,15 +6,15 @@ function Card(props){
 
 
     return(
-         <div className={`${style.countryCard}`}>
+         <div className={`${style.Card}`}>
               <div className={`${style.countryImg}`}>
                    <h1>{flag}</h1>
               </div>
-              <div className={`${style.countryInfo}`}>
+              <div>
                    <h3>{name}</h3>
-                   <p><span>Codigo: </span>{code}</p>
+                   {/* <p><span>Codigo: </span>{code}</p> */}
                    <p><span>Continente: </span>{continent}</p>
-                   <p><span>Población: </span>{population}</p>
+                   {/* <p><span>Población: </span>{population}</p> */}
                    <Link to={`/countries/${id}`} className={style.button}>Mas Informacion</Link>                    
 
                    
