@@ -38,7 +38,6 @@ export const getDetail = (id) => {
   return async function (dispatch) {
     const detail = await axios.get(`http://localhost:3001/pi/countries/${id}`);
     const idCountry = detail.data;
-    console.log(idCountry);
     dispatch({ type: GET_DETAIL, payload: idCountry });
   };
 };

@@ -12,7 +12,8 @@ const initialState = {
     paginated: [],
     sizePage: 10,
     currentPage: 0,
-    numberOfPage: 0
+    numberOfPage: 0,
+    allCountries: []
 }
 
 function paginate(currentPage, sizePage, list) {
@@ -38,7 +39,8 @@ const rootReducer = (state = initialState, action) =>{
                 ppopulation: action.payload,
                 allActivities: action.payload,
                 paginated: pagAllCountries,
-                searchName: action.payload
+                searchName: action.payload,
+                allCountries: action.payload
             }
 
         case GET_PAGES:
@@ -70,9 +72,19 @@ const rootReducer = (state = initialState, action) =>{
                 details: action.payload
             }
         case SET_CONTINENT:
+            const resContinent = state.allCountries
+            let countriesContinent = [];
+            if (action.payload === ""){
+                countriesContinent = state.allCountries;
+            }
+            else{
+            for (let i=0; i<resContinent.length; i++){
+                if(resContinent[i].continent === action.payload)
+                countriesContinent.push(resContinent[i]);
+            }}
             return {
                  ...state,
-                 continent: action.payload
+                 countries: countriesContinent
             }
         default:
             return {...state};
