@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCountries, getByName, setContinent } from "../../redux/actions";
+import { getCountries, getByName, setContinent, getSort } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import Paginate from "../Paginate/Paginate"
 import Card from "../../Components/Card/Card"
@@ -10,23 +10,26 @@ const Home = ()=>{
 
     const dispatch = useDispatch();
     const [country, setCountry] = useState('');
-    const [order, setOrder] = useState('AZ');
-    const countries = useSelector ((state) => state.countries)
-    const [currentPage]= useState(1)
-    // const [charactersPerPage]=useState(10)
-    // const indexOfLastCharacter = currentPage * charactersPerPage
-    // const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage
-    // const currentCharacters = countries.slice(indexOfFirstCharacter, indexOfLastCharacter)
+    const allcountries = useSelector ((state) => state.countries)
+    const currentPage= useSelector((state) => state.currentPage)
+    const sizePage = useSelector((state) => state.sizePage)
+    const [sort, setsort] = useState("asc"); 
     const continent = useSelector(state => state.continent);
+    const countries = allcountries.slice(currentPage*sizePage, currentPage*sizePage+sizePage);
 
     useEffect(()=>{      
         if(country){
           dispatch(getByName(country));
         }else{
-          dispatch(getCountries(order));
+          dispatch(getCountries());
         }
-      },[dispatch,country, order, continent]);
+      },[dispatch,country, continent]);
       
+      const order = (value) =>{
+        dispatch(getSort(value));
+        setsort(value);
+      }
+
       const cambiarContinente = (e) =>{
         dispatch(setContinent(e.target.value));
       }  
@@ -40,10 +43,10 @@ const Home = ()=>{
                   </div>
                   <div className={style.divOptions}>
                     <div>
-                      <button className={style.button} onClick={()=> setOrder('AZ')}>{`A -> Z`}</button>         
-                      <button className={style.button} onClick={()=> setOrder('ZA')}>{`Z -> A`}</button>         
-                      <button className={style.button} onClick={()=> setOrder('PLtoH')}>Poblacion Ascendente</button>         
-                      <button className={style.button} onClick={()=> setOrder('PHtoL')}>Poblacion Descendente</button>
+                      <button className={style.button} onClick={()=> order({isAsc: true, isByName: true})}>{`A -> Z`}</button>         
+                      <button className={style.button} onClick={()=> order({isAsc: false, isByName: true})}>{`Z -> A`}</button>         
+                      <button className={style.button} onClick={()=> order({isAsc: true, isByName: false})}>Poblacion Ascendente</button>         
+                      <button className={style.button} onClick={()=> order({isAsc: false, isByName: false})}>Poblacion Descendente</button>
                     </div>
                     <div>
                       <select onChange={cambiarContinente} name="continent" className={style.select}>
@@ -63,7 +66,7 @@ const Home = ()=>{
     
           <div className={style.container}>
             {countries.length > 0 ? countries.map((country, index) =>{
-            if(currentPage === 1 & index <10){
+            // if(currentPage === 1 & index <10){
               return (<div className={style.containerCards}><Card
                 key={country.id} 
                 id = {country.id}
@@ -73,24 +76,25 @@ const Home = ()=>{
                 continent={country.continent}  
                 population={country.population}      
               /></div>)
-            }
-            else if(currentPage !== 1 && index >= ((currentPage-1)*10)-1 && (index < (currentPage*10)-1)){
-              return (<Card
-                key={country.id} 
-                id = {country.id}
-                flag={country.flag}
-                code={country.code}
-                name={country.nameSpanish}
-                continent={country.continent}  
-                population={country.population}      
-              />)}}): 
+            // }
+            // else if(currentPage !== 1 && index >= ((currentPage-1)*10)-1 && (index < (currentPage*10)-1)){
+              // return (<Card
+              //   key={country.id} 
+              //   id = {country.id}
+              //   flag={country.flag}
+              //   code={country.code}
+              //   name={country.nameSpanish}
+              //   continent={country.continent}  
+              //   population={country.population}      
+              // />)}
+            }): 
               <div>
                 <p>No hay paises. Intenta otra busqueda.</p>
               </div>}
           </div>
     
-          <div>
-            <Paginate countriesLength={countries.length}/>
+          <div className="prueba">
+            <Paginate />
           </div>
         </div>
         </div>

@@ -3,14 +3,13 @@ import styles from "./NavBar.module.css"
 
 const NavBar = () => {
     return(
-        <div>
-    {/* <div>
-        <NavLink to="/"></NavLink>        
-    </div> */}
-    <div>
+    <div className={styles.container}>
+        <div className={styles.mainContainer}>
         <NavLink to="/">INICIO</NavLink>
+        </div>
+        <div className={styles.mainContainer}>
         <NavLink to="/form">NUEVA ACTIVIDAD</NavLink>
-    </div>
+        </div>
     </div>
     )
 }

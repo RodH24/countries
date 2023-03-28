@@ -1,12 +1,28 @@
-.mainContainer{
+.container{
+    background-image: url(https://e0.pxfuel.com/wallpapers/144/171/desktop-wallpaper-high-quality-world-map-digital-world-map.jpg);
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border: 1px solid black;
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    border-radius: 5px;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: space-between;
+    padding-top: 1px;
+}
+.mainContainer{
+    height: fit-content;
+    display: flex;
+    text-align: center;
+    text-decoration: none;
     color: #fff !important;
-    font-size: 20px;
-    font-weight: 500;
-    padding: 0.5em 1.2em;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 20px;
     background: #318aac;
-    border: 2px solid;
+    border: 2px hidden;
     border-color: #318aac;
     position: relative;
 }

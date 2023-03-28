@@ -2,14 +2,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPages } from "../../redux/actions";
 
-const Paginate = (characterPerPage, allCharacters, paginate) => {
+const Paginate = () => {
   const numberOfPage = useSelector((state) => state.numberOfPage);
   const dispatch = useDispatch();
+  console.log(numberOfPage);
 
   return (
     <nav>
       {" "}
-      <ul className="Paginado">
+      <ul>
         {numberOfPage &&
           [...Array(numberOfPage)].map((element, number) => (
             <button

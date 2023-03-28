@@ -14,6 +14,7 @@ const createActivities = async (req, res) =>{
                 through: {attributes: []}
             }
         })
+        // console.log(activityCountry);
         res.json(activityCountry)
     } catch(error){
         res.status(500).json({ error: error.message });

@@ -48,3 +48,11 @@ export const setContinent = (continent) => {
     dispatch({ type: SET_CONTINENT, payload: continent });
   };
 };
+
+export const GET_SORT = "GET_SORT";
+export const getSort = ({isAsc, isByName}) =>{
+  return async function (dispatch){
+    console.log("RRRRRRRR GETSORT");
+    dispatch({type: GET_SORT, payload: {isAsc, isByName}});
+  };
+};

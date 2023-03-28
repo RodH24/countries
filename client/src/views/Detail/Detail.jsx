@@ -31,7 +31,7 @@ function Detail(){
                         <h3>Actividades turisticas</h3>
                    <div className={style.activities}>
                         
-                        {country.Activities ? country.Activities.map(activity => {
+                        {country.activities ? country.activities.map(activity => {
                              return (<div key={activity.id} className={style.activity}>
                                   <p>Nombre: <span>{activity.name}</span></p>
                                   <p>Dificultad: <span>{activity.difficulty}</span></p>

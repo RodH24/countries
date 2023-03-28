@@ -73,6 +73,8 @@ const Form = ()=>{
         .catch(err=>alert(err))
     }
 
+
+
     return(
         <form onSubmit={submitHandler}>
             <div>
@@ -95,7 +97,7 @@ const Form = ()=>{
             </div>
             <div>
                 <label>Duration: </label>
-                <input type="text" value={form.duration} placeHolder="Escribir en formato hh:mm:ss" onChange={changeHandler} name="duration" />
+                <input type="text" value={form.duration} placeholder="Escribir en formato hh:mm:ss" onChange={changeHandler} name="duration" />
                 <span>{errors.duration}</span>
             </div>
             <div>
@@ -111,7 +113,7 @@ const Form = ()=>{
             </div>
             <div>
                 <label>Country: </label>
-                                <select onChange={handleSelect} required>
+                                <select onChange={handleSelect} multiple required>
                                     <option value="" hidden>Select country</option>
                                     {countries.map(e => (
                                         <option value={e.id} name="countries" key={e.id} >{e.name}</option>
