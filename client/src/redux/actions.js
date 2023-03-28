@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// const url = 'http://localhost:3001/pi';
 
 export const GET_COUNTRIES = "GET_COUNTRIES";
 export const getCountries = () => {
@@ -49,10 +48,16 @@ export const setContinent = (continent) => {
   };
 };
 
+export  const SET_ACTIVITY = "SET_ACTIVITY";
+export const setActivity = (activity) => {
+  return async function (dispatch) {
+    dispatch({ type: SET_ACTIVITY, payload: activity});
+  };
+};
+
 export const GET_SORT = "GET_SORT";
 export const getSort = ({isAsc, isByName}) =>{
   return async function (dispatch){
-    console.log("RRRRRRRR GETSORT");
     dispatch({type: GET_SORT, payload: {isAsc, isByName}});
   };
 };

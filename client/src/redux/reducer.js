@@ -4,6 +4,7 @@ import {
   GET_PAGES,
   GET_DETAIL,
   SET_CONTINENT,
+  SET_ACTIVITY,
   GET_SORT,
 } from "./actions";
 
@@ -92,6 +93,21 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countries: countriesContinent,
+      };
+    case SET_ACTIVITY:
+      const resActivity = state.allActivities;
+      let countriesActivity = [];
+      if (action.payload === ""){
+        countriesActivity = state.allActivities;
+      } else {
+        for (let i = 0; i<resActivity.length; i++) {
+          if (resActivity[i].activity === action.payload)
+          countriesActivity.push(resActivity[i]);
+        }
+      }
+      return{
+        ...state,
+        countries: countriesActivity,
       };
     case GET_SORT:
       const countries = state.countries;

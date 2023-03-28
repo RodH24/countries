@@ -2,6 +2,7 @@ import {React, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import style from "./Form.module.css";
 
 const Form = ()=>{
      
@@ -76,16 +77,17 @@ const Form = ()=>{
 
 
     return(
+        <div className={style.div_screen}>
         <form onSubmit={submitHandler}>
-            <div>
+            <div className={style.format}>
             <div>
                 <label>Name: </label>
-                <input type="text" value={form.name} onChange={changeHandler} name="name" />
+                <input className={style.format2} type="text" value={form.name} onChange={changeHandler} name="name" />
                 <span>{errors.name}</span>
             </div>
             <div>
                 <label>Difficulty: </label>
-                <select name="difficulty" onChange={changeHandler} value={form.difficulty}>
+                <select className={style.format2} name="difficulty" onChange={changeHandler} value={form.difficulty}>
                          <option value="">Elige una dificultad</option>
                          <option value="1">1</option>
                          <option value="2">2</option>
@@ -97,12 +99,12 @@ const Form = ()=>{
             </div>
             <div>
                 <label>Duration: </label>
-                <input type="text" value={form.duration} placeholder="Escribir en formato hh:mm:ss" onChange={changeHandler} name="duration" />
+                <input className={style.format2} type="text" value={form.duration} placeholder="Escribir en formato hh:mm:ss" onChange={changeHandler} name="duration" />
                 <span>{errors.duration}</span>
             </div>
             <div>
                 <label>Season: </label>
-                <select name="season" onChange={changeHandler} value={form.season}>
+                <select className={style.format2} name="season" onChange={changeHandler} value={form.season}>
                          <option value="">Elige una temporada</option>
                          <option value="winter">Invierno</option>
                          <option value="spring">Primavera</option>
@@ -113,7 +115,7 @@ const Form = ()=>{
             </div>
             <div>
                 <label>Country: </label>
-                                <select onChange={handleSelect} multiple required>
+                                <select className={style.format2} Change={handleSelect} multiple required>
                                     <option value="" hidden>Select country</option>
                                     {countries.map(e => (
                                         <option value={e.id} name="countries" key={e.id} >{e.name}</option>
@@ -129,10 +131,12 @@ const Form = ()=>{
                                         </div>)}</li>
                                 </ul>
             </div>
-            <button type="submit">CREATE</button>
+            <button className={style.button} type="submit">CREATE</button>
             </div>
             <Link to="/home">Volver</Link>
         </form>
+        <div className={style.footer}>Travels RodH24</div>
+        </div>
     )
 }
 
