@@ -6,6 +6,7 @@ import {
   SET_CONTINENT,
   SET_ACTIVITY,
   GET_SORT,
+  GET_ACTIVITIES,
 } from "./actions";
 
 const initialState = {
@@ -22,6 +23,10 @@ const initialState = {
   currentPage: 0,
   numberOfPage: 0,
   allCountries: [],
+  isFilterByName: false,
+  isFilterByContinent: false,
+  isFilterByActivity: false,
+  filtered: [],
 };
 
 function paginate(currentPage, sizePage, list) {
@@ -32,7 +37,7 @@ function paginate(currentPage, sizePage, list) {
 }
 
 const rootReducer = (state = initialState, action) => {
-    switch (action.type) {
+  switch (action.type) {
     case GET_COUNTRIES:
       const allCountries = action.payload;
       const pagAllCountries = paginate(
@@ -49,7 +54,8 @@ const rootReducer = (state = initialState, action) => {
         paginated: pagAllCountries,
         searchName: action.payload,
         allCountries: action.payload,
-        numberOfPage: Math.ceil(allCountries.length/state.sizePage)
+        filtered: action.payload,
+        numberOfPage: Math.ceil(allCountries.length / state.sizePage),
       };
 
     case GET_PAGES:
@@ -72,6 +78,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_BY_NAME:
       return {
         ...state,
+        isFilterByName: true,
         countries: action.payload,
       };
     case GET_DETAIL:
@@ -80,11 +87,17 @@ const rootReducer = (state = initialState, action) => {
         details: action.payload,
       };
     case SET_CONTINENT:
-      const resContinent = state.allCountries;
+      let isFilterByContinent = false;
+      const resContinent = state.isFilterByActivity
+        ? state.filtered
+        : state.allCountries;
       let countriesContinent = [];
       if (action.payload === "") {
-        countriesContinent = state.allCountries;
+        countriesContinent = state.isFilterByActivity
+          ? state.filtered
+          : state.allCountries;
       } else {
+        isFilterByContinent = true;
         for (let i = 0; i < resContinent.length; i++) {
           if (resContinent[i].continent === action.payload)
             countriesContinent.push(resContinent[i]);
@@ -92,22 +105,46 @@ const rootReducer = (state = initialState, action) => {
       }
       return {
         ...state,
+        isFilterByContinent,
         countries: countriesContinent,
+        filtered: state.isFilterByActivity
+          ? state.filtered
+          : countriesContinent,
       };
     case SET_ACTIVITY:
-      const resActivity = state.allActivities;
+      let isFilterByActivity = false;
+      const resActivity = state.isFilterByContinent
+        ? state.filtered
+        : state.allCountries;
       let countriesActivity = [];
-      if (action.payload === ""){
-        countriesActivity = state.allActivities;
+      console.log(resActivity);
+      if (action.payload === "") {
+        countriesActivity = state.isFilterByContinent
+          ? state.filtered
+          : state.allCountries;
       } else {
-        for (let i = 0; i<resActivity.length; i++) {
-          if (resActivity[i].activity === action.payload)
-          countriesActivity.push(resActivity[i]);
+        isFilterByActivity = true;
+        for (let i = 0; i < resActivity.length; i++) {
+          let selectActivities = resActivity[i].Activities.filter((e) => {
+            return e.id == action.payload;
+          });
+          if (selectActivities.length) {
+            countriesActivity.push(resActivity[i]);
+          }
         }
       }
-      return{
+      return {
         ...state,
+        isFilterByActivity: isFilterByActivity,
         countries: countriesActivity,
+        filtered: state.isFilterByContinent
+          ? state.filtered
+          : countriesActivity,
+      };
+    case GET_ACTIVITIES:
+      return {
+        ...state,
+        allActivities: action.payload,
       };
     case GET_SORT:
       const countries = state.countries;
@@ -128,23 +165,27 @@ const rootReducer = (state = initialState, action) => {
         : countries.sort((a, b) => {
             const splitA = a.population;
             const splitB = b.population;
-            if(isAsc){
-                if(splitA < splitB) return -1;
-                if(splitA > splitB) return 1;
-                return 0;
-            } else{
-                if(splitA > splitB) return -1;
-                if(splitA < splitB) return 1; 
-                return 0;
+            if (isAsc) {
+              if (splitA < splitB) return -1;
+              if (splitA > splitB) return 1;
+              return 0;
+            } else {
+              if (splitA > splitB) return -1;
+              if (splitA < splitB) return 1;
+              return 0;
             }
           });
-        const pagSortCountries = paginate(state.currentPage, state.sizePage, sort);
-        return{
-            ...state,
-            countries: sort,
-            paginated: pagSortCountries,
-            numberOfPage:Math.ceil(sort.length / 10),
-        };
+      const pagSortCountries = paginate(
+        state.currentPage,
+        state.sizePage,
+        sort
+      );
+      return {
+        ...state,
+        countries: sort,
+        paginated: pagSortCountries,
+        numberOfPage: Math.ceil(sort.length / 10),
+      };
     default:
       return { ...state };
   }

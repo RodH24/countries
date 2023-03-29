@@ -7,7 +7,8 @@ const getActivities = async (req, res) => {
         const total = filterA.filter((item, index) => {
             return filterA.indexOf(item) === index;
     });
-    res.json(total);
+    console.log("RRRRRRRRRRR", allActivities)
+    res.json(allActivities);
     } catch (error) {
         res.status(404).json({ error: "Esta actividad no existe" });
     }

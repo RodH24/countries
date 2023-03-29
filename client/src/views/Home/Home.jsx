@@ -5,6 +5,8 @@ import {
   getByName,
   setContinent,
   getSort,
+  getActivities,
+  setActivity,
 } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import Paginate from "../Paginate/Paginate";
@@ -15,6 +17,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [country, setCountry] = useState("");
   const allcountries = useSelector((state) => state.countries);
+  const allActivities = useSelector((state)=>state.allActivities)
   const currentPage = useSelector((state) => state.currentPage);
   const sizePage = useSelector((state) => state.sizePage);
   const [sort, setsort] = useState("asc");
@@ -29,6 +32,7 @@ const Home = () => {
       dispatch(getByName(country));
     } else {
       dispatch(getCountries());
+      dispatch(getActivities());
     }
   }, [dispatch, country, continent]);
 
@@ -39,6 +43,10 @@ const Home = () => {
 
   const cambiarContinente = (e) => {
     dispatch(setContinent(e.target.value));
+  };
+
+  const cambiarActividad = (e) => {
+    dispatch(setActivity(e.target.value));
   };
 
   return (
@@ -92,6 +100,12 @@ const Home = () => {
                 <option value="North America">North America</option>
                 <option value="South America">South America</option>
                 <option value="Oceania">Oceania</option>
+              </select>
+            </div>
+            <div>
+              <select onChange={cambiarActividad} name="activity" className={style.select}>
+                <option value="">Todas las actividades</option>
+                {allActivities.map((e)=><option value={e.id}>{e.name}</option>)}
               </select>
             </div>
           </div>

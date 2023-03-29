@@ -5,7 +5,6 @@ import { getPages } from "../../redux/actions";
 const Paginate = () => {
   const numberOfPage = useSelector((state) => state.numberOfPage);
   const dispatch = useDispatch();
-  console.log(numberOfPage);
 
   return (
     <nav>

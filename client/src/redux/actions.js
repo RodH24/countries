@@ -48,6 +48,15 @@ export const setContinent = (continent) => {
   };
 };
 
+export const GET_ACTIVITIES = "GET_ACTIVITIES";
+export const getActivities = () =>{
+  return async function (dispatch) {
+    const dataActivities = await axios.get(`http://localhost:3001/pi/activities`);
+    const alldataActivities = dataActivities.data;
+    dispatch({ type: GET_ACTIVITIES, payload: alldataActivities });
+  };
+};
+
 export  const SET_ACTIVITY = "SET_ACTIVITY";
 export const setActivity = (activity) => {
   return async function (dispatch) {
