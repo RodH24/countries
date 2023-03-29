@@ -22,8 +22,9 @@ const Form = () => {
     difficulty: "",
     duration: "",
     season: "",
-    country: "",
     selector: "",
+    country: "",
+    count: 0,
   });
 
   const changeHandler = (event) => {
@@ -53,25 +54,60 @@ const Form = () => {
 
   const validate = (form) => {
     const errorList = errors;
-    if (form.name === "") errorList.name = "Agregue un nombre a la actividad"
-    else errorList.name = ""
-    if (form.difficulty === "") errorList.difficulty = "Seleccione una dificultad"
-    else errorList.difficulty = ""
-    if (form.duration === "") errorList.duration = "Seleccione una duracion"
-    else errorList.duration = ""
-    if (form.season === "") errorList.season = "Seleccione una temporada para la actividad"
-    else errorList.season = ""
-    if (form.countries.length === 0) errorList.country = "Agrege al menos un pais para la actividad"
-    else errorList.country = "";
+    if (form.name === "") {
+      errorList.count++;
+      errorList.name = "Agregue un nombre a la actividad"
+    }
+    else {
+      errorList.count--;
+      errorList.name = ""
+    }
+    if (form.difficulty === "") {
+      errorList.count++;
+      errorList.difficulty = "Seleccione una dificultad"
+    }
+    else {
+      errorList.count--;
+      errorList.difficulty = ""
+    }
+    if (form.duration === "") {
+      errorList.count++;
+      errorList.duration = "Seleccione una duracion"
+    }
+    else {
+      errorList.count--;
+      errorList.duration = ""
+    }
+    if (form.season === "") {
+      errorList.count++;
+      errorList.season = "Seleccione una temporada para la actividad"
+    }
+    else {
+      errorList.count--;
+      errorList.season = ""
+    }
+    if (form.countries.length === 0) {
+      errorList.count++;
+      errorList.country = "Agrege al menos un pais para la actividad"
+    }
+    else {
+      errorList.count--;
+      errorList.country = "";
+    }
     setErrors(errorList)
   };
 
   const submitHandler = (event) => {
+    validate(form);
     event.preventDefault();
-    axios
-      .post("http://localhost:3001/pi/activities", form)
-      .then((res) => alert("La actividad se creo correctamente"))
-      .catch((err) => alert(err));
+    if (errors.count !== 0) {
+      alert('Faltan datos en el formulario!')
+    } else {
+      axios
+        .post("http://localhost:3001/pi/activities", form)
+        .then((res) => alert("La actividad se creo correctamente"))
+        .catch((err) => alert(err));
+    }
   };
 
   return (
