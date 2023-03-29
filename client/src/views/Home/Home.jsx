@@ -51,9 +51,10 @@ const Home = () => {
 
   return (
     <div className={style.div_screen}>
-          <Paginate />
-      <div className={`${style.container}`}>
-        <div className={style.container}>
+          
+      <div>
+      <Paginate />
+        <div className={style.filterContainer}>
           <div>
             <input
               onChange={(e) => setCountry(e.target.value)}
@@ -90,7 +91,7 @@ const Home = () => {
               <select
                 onChange={cambiarContinente}
                 name="continent"
-                className={style.select}
+                className={style.button}
               >
                 <option value="">Todos los Continentes</option>
                 <option value="Africa">Africa</option>
@@ -101,16 +102,15 @@ const Home = () => {
                 <option value="South America">South America</option>
                 <option value="Oceania">Oceania</option>
               </select>
-            </div>
-            <div>
-              <select onChange={cambiarActividad} name="activity" className={style.select}>
+      
+              <select onChange={cambiarActividad} name="activity" className={style.button}>
                 <option value="">Todas las actividades</option>
                 {allActivities.map((e)=><option value={e.id}>{e.name}</option>)}
               </select>
             </div>
           </div>
         </div>
-
+        <br></br>
         <div className={style.container}>
           {countries.length > 0 ? (
             countries.map((country, index) => {

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -22,18 +22,9 @@ const Form = () => {
     difficulty: "",
     duration: "",
     season: "",
+    country: "",
     selector: "",
   });
-
-  // const pushCountry = (event) =>{
-  //     const value = event.target.value;
-  //     const aux = form.idCountries;
-  //     aux.push(value);
-  //     setForm({
-  //         ...form,
-  //         idCountries: aux
-  //     })
-  // }
 
   const changeHandler = (event) => {
     const property = event.target.name;
@@ -57,19 +48,22 @@ const Form = () => {
     }
   };
 
+  useEffect(() => {
+  }, [errors])
+
   const validate = (form) => {
-    if (form.name === "")
-      setErrors({ ...errors, name: "Agregue un nombre a la actividad" });
-    else setErrors({ ...errors, name: "" });
-    if (form.difficulty === "")
-      setErrors({ ...errors, difficulty: "Agregue un nombre a la actividad" });
-    else setErrors({ ...errors, difficulty: "" });
-    if (form.duration === "")
-      setErrors({ ...errors, duration: "Agregue un nombre a la actividad" });
-    else setErrors({ ...errors, duration: "" });
-    if (form.season === "")
-      setErrors({ ...errors, season: "Agregue un nombre a la actividad" });
-    else setErrors({ ...errors, season: "" });
+    const errorList = errors;
+    if (form.name === "") errorList.name = "Agregue un nombre a la actividad"
+    else errorList.name = ""
+    if (form.difficulty === "") errorList.difficulty = "Seleccione una dificultad"
+    else errorList.difficulty = ""
+    if (form.duration === "") errorList.duration = "Seleccione una duracion"
+    else errorList.duration = ""
+    if (form.season === "") errorList.season = "Seleccione una temporada para la actividad"
+    else errorList.season = ""
+    if (form.countries.length === 0) errorList.country = "Agrege al menos un pais para la actividad"
+    else errorList.country = "";
+    setErrors(errorList)
   };
 
   const submitHandler = (event) => {
@@ -139,23 +133,9 @@ const Form = () => {
               <option value="autumm">Otono</option>
             </select>
             <span>{errors.season}</span>
-
+            </div>
+            <div>
             <label>Country: </label>
-            {/* <select
-              className={style.format2}
-              onChange={handleSelect}
-              multiple
-              required
-            >
-              <option value="" hidden>
-                Select country
-              </option>
-              {countries.map((e) => (
-                <option value={e.id} name="countries" key={e.id}>
-                  {e.name}
-                </option>
-              ))}
-            </select> */}
             <input
               className={style.format2}
               type="text"
@@ -180,12 +160,13 @@ const Form = () => {
                 {e.name}
               </>
             ))}
+                        <span>{errors.country}</span>
           </div>
           <button className={style.button} type="submit">
             CREATE
           </button>
         </div>
-        <Link to="/home">Volver</Link>
+        <Link to="/home"className={style.buttonBack}>Volver</Link>
       </form>
       <div className={style.footer}>Travels RodH24</div>
     </div>

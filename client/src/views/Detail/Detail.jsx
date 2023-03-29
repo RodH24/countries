@@ -16,11 +16,11 @@ function Detail(){
     },[dispatch, id])
 
     return(
-         <div className={`${style.cardInfo}`}>
+         <div className={style.div_screen}>
+              <div className={style.format}>
               <div>
-                   <h1>{country.flag}</h1>
+                   <h1 className={style.flags}>{country.flag}</h1>
               </div>
-              <div className={`${style.info}`}>
                    <p>Nombre: <span>{country.name}</span></p>
                    <p>Codigo: <span>{country.id}</span></p>
                    <p>Capital: <span>{country.capital}</span></p>
@@ -29,7 +29,7 @@ function Detail(){
                    <p>Subregion: <span>{country.subregion}</span></p>
                    <p>Area: <span>{country.area}</span></p>
                         <h3>Actividades turisticas</h3>
-                   <div className={style.activities}>
+                   <div className={style.format}>
                         
                         {country.activities ? country.activities.map(activity => {
                              return (<div key={activity.id} className={style.activity}>
